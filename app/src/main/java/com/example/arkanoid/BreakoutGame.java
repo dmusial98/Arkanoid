@@ -10,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -85,14 +84,6 @@ public class BreakoutGame extends Activity {
         Brick[] bricks = new Brick[200];
         int numBricks = 0;
 
-        // For sound FX
-        SoundPool soundPool;
-        int beep1ID = -1;
-        int beep2ID = -1;
-        int beep3ID = -1;
-        int loseLifeID = -1;
-        int explodeID = -1;
-
         // The score
         int score = 0;
 
@@ -124,37 +115,6 @@ public class BreakoutGame extends Activity {
 
             // Create a ball
             ball = new Ball(screenX, screenY);
-
-            // Load the sounds
-
-            // This SoundPool is deprecated but don't worry
-            soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-
-            try {
-                // Create objects of the 2 required classes
-                AssetManager assetManager = context.getAssets();
-                AssetFileDescriptor descriptor;
-
-                // Load our fx in memory ready for use
-                descriptor = assetManager.openFd("beep1.ogg");
-                beep1ID = soundPool.load(descriptor, 0);
-
-                descriptor = assetManager.openFd("beep2.ogg");
-                beep2ID = soundPool.load(descriptor, 0);
-
-                descriptor = assetManager.openFd("beep3.ogg");
-                beep3ID = soundPool.load(descriptor, 0);
-
-                descriptor = assetManager.openFd("loseLife.ogg");
-                loseLifeID = soundPool.load(descriptor, 0);
-
-                descriptor = assetManager.openFd("explode.ogg");
-                explodeID = soundPool.load(descriptor, 0);
-
-            } catch (IOException e) {
-                // Print an error message to the console
-                Log.e("error", "failed to load sound files");
-            }
 
             createBricksAndRestart();
 
@@ -222,7 +182,6 @@ public class BreakoutGame extends Activity {
                         bricks[i].setInvisible();
                         ball.reverseYVelocity();
                         score = score + 10;
-                        soundPool.play(explodeID, 1, 1, 0, 0, 1);
                     }
                 }
             }
@@ -231,7 +190,6 @@ public class BreakoutGame extends Activity {
                 ball.setRandomXVelocity();
                 ball.reverseYVelocity();
                 ball.clearObstacleY(paddle.getRect().top - 2);
-                soundPool.play(beep1ID, 1, 1, 0, 0, 1);
             }
             // Bounce the ball back when it hits the bottom of screen
             if (ball.getRect().bottom > screenY) {
@@ -240,7 +198,6 @@ public class BreakoutGame extends Activity {
 
                 // Lose a life
                 lives--;
-                soundPool.play(loseLifeID, 1, 1, 0, 0, 1);
 
                 if (lives == 0) {
                     paused = true;
@@ -254,8 +211,6 @@ public class BreakoutGame extends Activity {
             {
                 ball.reverseYVelocity();
                 ball.clearObstacleY(12);
-
-                soundPool.play(beep2ID, 1, 1, 0, 0, 1);
             }
 
             // If the ball hits left wall bounce
@@ -264,7 +219,6 @@ public class BreakoutGame extends Activity {
             {
                 ball.reverseXVelocity();
                 ball.clearObstacleX(2);
-                soundPool.play(beep3ID, 1, 1, 0, 0, 1);
             }
 
             // If the ball hits right wall bounce
@@ -272,8 +226,6 @@ public class BreakoutGame extends Activity {
 
                 ball.reverseXVelocity();
                 ball.clearObstacleX(screenX - 22);
-
-                soundPool.play(beep3ID, 1, 1, 0, 0, 1);
             }
 
             // Pause if cleared screen
@@ -367,24 +319,17 @@ public class BreakoutGame extends Activity {
                 // Player has touched the screen
                 case MotionEvent.ACTION_DOWN:
                     paused = false;
-                    if (motionEvent.getX() > screenX / 2) {
-
+                    if (motionEvent.getX() > screenX / 2)
                         paddle.setMovementState(paddle.RIGHT);
-                    } else
-
-                    {
+                    else
                         paddle.setMovementState(paddle.LEFT);
-                    }
-
                     break;
 
                 // Player has removed finger from screen
                 case MotionEvent.ACTION_UP:
-
                     paddle.setMovementState(paddle.STOPPED);
                     break;
             }
-
             return true;
         }
 
