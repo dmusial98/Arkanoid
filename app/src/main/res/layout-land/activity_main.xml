@@ -9,9 +9,10 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="235dp"
+        android:layout_width="641dp"
         android:layout_height="103dp"
-        android:text="Hello in Arkanoid game. Choose Play buton for start play, if you want to read game rules and control choose second button. For change settings please choose third button."
+        android:gravity="center"
+        android:text="Hello in Arkanoid game. \n Choose Play buton for start play, if you want to read game rules and control choose second button. \nFor change settings please choose third button."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,20 +28,21 @@
         android:text="Play"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.497" />
+        app:layout_constraintVertical_bias="0.145" />
 
     <Button
         android:id="@+id/buttonSettings"
         android:layout_width="115dp"
         android:layout_height="58dp"
         android:layout_marginStart="138dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="158dp"
         android:text="Settings"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonRules" />
 
@@ -49,10 +51,11 @@
         android:layout_width="115dp"
         android:layout_height="58dp"
         android:layout_marginStart="138dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="158dp"
         android:text="Rules and control"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonPlay" />
 

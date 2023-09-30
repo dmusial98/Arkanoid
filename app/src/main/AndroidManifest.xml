@@ -13,10 +13,10 @@
         android:theme="@style/Theme.Arkanoid"
         tools:targetApi="31">
         <activity
-            android:name=".BreakoutGame"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:name=".MainActivity"
+            android:exported="true"
             android:screenOrientation="landscape"
-            android:exported="true">
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,6 +27,10 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".BreakoutGame"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     </application>
 
 </manifest>

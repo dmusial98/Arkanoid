@@ -207,30 +207,26 @@ public class BreakoutGame extends Activity {
 
             // Bounce the ball back when it hits the top of screen
             if (ball.getRect().top < 0)
-
             {
                 ball.reverseYVelocity();
-                ball.clearObstacleY(12);
+                ball.clearObstacleY(GameVariables.ballWidthHeightInPixels);
             }
 
             // If the ball hits left wall bounce
             if (ball.getRect().left < 0)
-
             {
                 ball.reverseXVelocity();
                 ball.clearObstacleX(2);
             }
 
             // If the ball hits right wall bounce
-            if (ball.getRect().right > screenX - 10) {
-
+            if (ball.getRect().right > screenX ) {
                 ball.reverseXVelocity();
-                ball.clearObstacleX(screenX - 22);
+                ball.clearObstacleX(screenX - GameVariables.ballWidthHeightInPixels - 2);
             }
 
             // Pause if cleared screen
             if (score == numBricks * 10)
-
             {
                 paused = true;
                 createBricksAndRestart();
