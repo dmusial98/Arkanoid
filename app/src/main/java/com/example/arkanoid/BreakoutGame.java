@@ -9,6 +9,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.RectF;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +20,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -26,6 +31,13 @@ public class BreakoutGame extends Activity {
     // and respond to screen touches as well
     BreakoutView breakoutView;
 
+    public SensorManager sensorManager;
+    public Sensor rotationVectorSensor;
+    public SensorEventListener rvListener;
+    public float[] rotationMatrix;
+    public float angle;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +46,50 @@ public class BreakoutGame extends Activity {
         breakoutView = new BreakoutView(this);
         setContentView(breakoutView);
 
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+
+        rotationMatrix = new float[16];
+
+        rvListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent sensorEvent) {
+
+                SensorManager.getRotationMatrixFromVector(rotationMatrix, sensorEvent.values);
+
+//                 Remap coordinate system
+                float[] remappedRotationMatrix = new float[16];
+                SensorManager.remapCoordinateSystem(rotationMatrix,
+                        SensorManager.AXIS_X,
+                        SensorManager.AXIS_Z,
+                        remappedRotationMatrix);
+// Convert to orientations
+                float[] orientations = new float[3];
+                SensorManager.getOrientation(remappedRotationMatrix, orientations);
+
+                for (int i = 0; i < 3; i++) {
+                    orientations[i] = (float) (Math.toDegrees(orientations[i]));
+                }
+
+
+                angle = orientations[2];
+                if (angle > -85 && angle < -5) { //prawo
+                    breakoutView.paddle.setMovementState(breakoutView.paddle.RIGHT);
+                } else if (angle > -175 && angle < -95) { //lewo
+                    breakoutView.paddle.setMovementState(breakoutView.paddle.LEFT);
+                } else if (angle < -85 && angle > -95) {
+                    breakoutView.paddle.setMovementState(breakoutView.paddle.STOPPED);
+                }
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int i) {
+            }
+        };
+
+        sensorManager.registerListener(rvListener,
+                rotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     // Here is our implementation of BreakoutView
@@ -75,7 +131,7 @@ public class BreakoutGame extends Activity {
         int screenY;
 
         // The players paddle
-        Paddle paddle;
+        public Paddle paddle;
 
         // A ball
         Ball ball;
@@ -89,6 +145,7 @@ public class BreakoutGame extends Activity {
 
         // Lives
         int lives = 3;
+
 
         // When the we initialize (call new()) on gameView
         // This special constructor method runs
@@ -115,6 +172,12 @@ public class BreakoutGame extends Activity {
 
             // Create a ball
             ball = new Ball(screenX, screenY);
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
             createBricksAndRestart();
 
