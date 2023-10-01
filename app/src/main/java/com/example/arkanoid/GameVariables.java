@@ -13,6 +13,6 @@ public class GameVariables {
     public static int paddleHeight = 30;
 
 
-    public static int paddleSpeed = 500;
+    public static float paddleFactorSpeed = 1.0f;
     public static float ballFactorSpeed = 1.0f;
 }

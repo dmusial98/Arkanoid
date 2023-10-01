@@ -43,7 +43,7 @@ public class Paddle {
         rect = new RectF(x, y, x + length, y + height);
 
         // How fast is the paddle in pixels per second
-        paddleSpeed = 500;
+        paddleSpeed = 700;
     }
 
     // This is a getter method to make the rectangle that

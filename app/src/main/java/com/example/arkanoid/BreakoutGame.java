@@ -187,7 +187,7 @@ public class BreakoutGame extends Activity {
             }
             // Check for ball colliding with paddle
             if (RectF.intersects(paddle.getRect(), ball.getRect())) {
-                ball.setRandomXVelocity();
+//                ball.setRandomXVelocity();
                 ball.reverseYVelocity();
                 ball.clearObstacleY(paddle.getRect().top - 2);
             }
@@ -198,9 +198,9 @@ public class BreakoutGame extends Activity {
 
                 // Lose a life
                 lives--;
+                paused = true;
 
                 if (lives == 0) {
-                    paused = true;
                     createBricksAndRestart();
                 }
             }

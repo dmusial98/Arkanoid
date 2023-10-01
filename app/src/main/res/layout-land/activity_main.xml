@@ -12,7 +12,7 @@
         android:layout_width="641dp"
         android:layout_height="103dp"
         android:gravity="center"
-        android:text="Hello in Arkanoid game. \n Choose Play buton for start play, if you want to read game rules and control choose second button. \nFor change settings please choose third button."
+        android:text="Hello in Arkanoid game.\nChoose Play buton for start play, if you want to read game rules and control choose second button.\nFor change settings please choose third button."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
 
     <Button
         android:id="@+id/buttonPlay"
-        android:layout_width="115dp"
+        android:layout_width="130dp"
         android:layout_height="58dp"
         android:layout_marginStart="138dp"
         android:layout_marginEnd="158dp"
@@ -35,7 +35,7 @@
 
     <Button
         android:id="@+id/buttonSettings"
-        android:layout_width="115dp"
+        android:layout_width="130dp"
         android:layout_height="58dp"
         android:layout_marginStart="138dp"
         android:layout_marginTop="8dp"
@@ -48,7 +48,7 @@
 
     <Button
         android:id="@+id/buttonRules"
-        android:layout_width="115dp"
+        android:layout_width="130dp"
         android:layout_height="58dp"
         android:layout_marginStart="138dp"
         android:layout_marginTop="8dp"

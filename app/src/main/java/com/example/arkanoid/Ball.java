@@ -14,8 +14,8 @@ public class Ball {
     public Ball(int screenX, int screenY){
 
         // Start the ball travelling straight up at 100 pixels per second
-        xVelocity = 100;
-        yVelocity = -300;
+        xVelocity = 300;
+        yVelocity = -600;
 
         // Place the ball in the centre of the screen at the bottom
         // Make it a 10 pixel x 10 pixel square
