@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    Button button;
+    Button playButton;
+    Button settingsButton;
     TextView textView;
 
     @Override
@@ -19,16 +20,25 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
 
-        button = (Button) findViewById(R.id.buttonPlay);
+        playButton = (Button) findViewById(R.id.buttonPlay);
+        settingsButton = (Button) findViewById(R.id.buttonSettings);
         textView = (TextView) findViewById(R.id.textView);
 
 
-        button.setOnClickListener(new View.OnClickListener() {
+        playButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                textView.setText("Button clicked");
                 Log.d("BUTTONS", "User tapped the Supabutton");
 
                 Intent i = new Intent(MainActivity.this, BreakoutGame.class);
+                startActivity(i);
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("BUTTONS", "User tapped the Supabutton");
+
+                Intent i = new Intent(MainActivity.this, Settings.class);
                 startActivity(i);
             }
         });

@@ -1,6 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <SeekBar
+        android:id="@+id/gameSpeedSeekBar"
+        android:layout_width="162dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="51dp"
+        android:max="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/gameSpeedTextView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/gameSpeedTextView"
+        android:layout_width="147dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="22dp"
+        android:text="Game speed"
+        app:layout_constraintEnd_toStartOf="@+id/gameSpeedSeekBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/platformSpeedTextView"
+        android:layout_width="147dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="22dp"
+        android:text="Platform speed"
+        app:layout_constraintEnd_toStartOf="@+id/platformSpeedSeekbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameSpeedTextView" />
+
+    <SeekBar
+        android:id="@+id/platformSpeedSeekbar"
+        android:layout_width="162dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="51dp"
+        android:max="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/platformSpeedTextView"
+        app:layout_constraintTop_toBottomOf="@+id/gameSpeedSeekBar" />
+
+    <TextView
+        android:id="@+id/livesNumberTextView"
+        android:layout_width="147dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="22dp"
+        android:text="Lives number:"
+        app:layout_constraintEnd_toStartOf="@+id/livesNumberSeekbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/platformSpeedTextView" />
+
+    <SeekBar
+        android:id="@+id/livesNumberSeekbar"
+        android:layout_width="162dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="51dp"
+        android:max="5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/livesNumberTextView"
+        app:layout_constraintTop_toBottomOf="@+id/platformSpeedSeekbar" />
+
+    <TextView
+        android:id="@+id/platformSizeTextView"
+        android:layout_width="147dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="22dp"
+        android:text="Platform size"
+        app:layout_constraintEnd_toStartOf="@+id/platformSizeSeekbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/livesNumberTextView" />
+
+    <SeekBar
+        android:id="@+id/platformSizeSeekbar"
+        android:layout_width="162dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="51dp"
+        android:max="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/platformSizeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/livesNumberSeekbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
