@@ -9,10 +9,18 @@ public class GameVariables {
     public static int livesNumber = 3;
 
     public static int ballWidthHeightInPixels = 20;
-    public static int paddleLength = 130;
+    public static float paddleLength = 130;
     public static int paddleHeight = 30;
 
+    public static boolean controlWithRotation = false;
 
-    public static float paddleFactorSpeed = 1.0f;
-    public static float ballFactorSpeed = 1.0f;
+    public static final int paddleLengthMax = 300;
+    public static final int paddleSpeedMax = 700;
+    public static final int ballVerticalMaxSpeed = -600;
+    public static final int ballHorizontalMaxSpeed = 300;
+
+
+    public static float paddleSpeed = 700.0f;
+    public static float ballHorizontalSpeed = 300.f;
+    public static float ballVerticalSpeed = -600.f;
 }

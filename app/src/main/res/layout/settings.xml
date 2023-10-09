@@ -12,14 +12,15 @@
         android:layout_marginStart="22dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="51dp"
-        android:max="100"
+        android:max="3"
+        android:progress="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/gameSpeedTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/gameSpeedTextView"
-        android:layout_width="147dp"
+        android:layout_width="180dp"
         android:layout_height="23dp"
         android:layout_marginStart="29dp"
         android:layout_marginTop="20dp"
@@ -31,7 +32,7 @@
 
     <TextView
         android:id="@+id/platformSpeedTextView"
-        android:layout_width="147dp"
+        android:layout_width="180dp"
         android:layout_height="23dp"
         android:layout_marginStart="29dp"
         android:layout_marginTop="24dp"
@@ -48,14 +49,15 @@
         android:layout_marginStart="22dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="51dp"
-        android:max="100"
+        android:max="3"
+        android:progress="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/platformSpeedTextView"
         app:layout_constraintTop_toBottomOf="@+id/gameSpeedSeekBar" />
 
     <TextView
         android:id="@+id/livesNumberTextView"
-        android:layout_width="147dp"
+        android:layout_width="180dp"
         android:layout_height="23dp"
         android:layout_marginStart="29dp"
         android:layout_marginTop="23dp"
@@ -72,14 +74,15 @@
         android:layout_marginStart="22dp"
         android:layout_marginTop="29dp"
         android:layout_marginEnd="51dp"
-        android:max="5"
+        android:max="4"
+        android:progress="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/livesNumberTextView"
         app:layout_constraintTop_toBottomOf="@+id/platformSpeedSeekbar" />
 
     <TextView
         android:id="@+id/platformSizeTextView"
-        android:layout_width="147dp"
+        android:layout_width="180dp"
         android:layout_height="23dp"
         android:layout_marginStart="29dp"
         android:layout_marginTop="20dp"
@@ -96,8 +99,59 @@
         android:layout_marginStart="22dp"
         android:layout_marginTop="26dp"
         android:layout_marginEnd="51dp"
-        android:max="100"
+        android:max="3"
+        android:progress="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/platformSizeTextView"
         app:layout_constraintTop_toBottomOf="@+id/livesNumberSeekbar" />
+
+    <SeekBar
+        android:id="@+id/brickColumnNumberSeekbar"
+        android:layout_width="162dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="51dp"
+        android:max="9"
+        android:progress="7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/brickColumnNumberTextView"
+        app:layout_constraintTop_toBottomOf="@+id/platformSizeSeekbar" />
+
+    <TextView
+        android:id="@+id/brickColumnNumberTextView"
+        android:layout_width="180dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="22dp"
+        android:text="Brick column number"
+        app:layout_constraintEnd_toStartOf="@+id/brickColumnNumberSeekbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/platformSizeTextView" />
+
+    <TextView
+        android:id="@+id/brickRowNumberTextView"
+        android:layout_width="180dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="22dp"
+        android:text="Brick row number"
+        app:layout_constraintEnd_toStartOf="@+id/brickRowNumberSeekbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/brickColumnNumberTextView" />
+
+    <SeekBar
+        android:id="@+id/brickRowNumberSeekbar"
+        android:layout_width="162dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="51dp"
+        android:max="4"
+        android:progress="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/brickRowNumberTextView"
+        app:layout_constraintTop_toBottomOf="@+id/brickColumnNumberSeekbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

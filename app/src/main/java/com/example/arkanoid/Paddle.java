@@ -33,17 +33,24 @@ public class Paddle {
     // in the screen width and height
     public Paddle(int screenX, int screenY){
         // 130 pixels wide and 20 pixels high
-        length = 130;
-        height = 30;
+        length = GameVariables.paddleLength;
+        height = GameVariables.paddleHeight;
 
         // Start paddle in roughly the sceen centre
         x = screenX / 2;
-        y = screenY - 30;
+        y = screenY - GameVariables.paddleHeight;
 
         rect = new RectF(x, y, x + length, y + height);
 
         // How fast is the paddle in pixels per second
-        paddleSpeed = 700;
+        paddleSpeed = GameVariables.paddleSpeed;
+    }
+
+    public void reset(int screenX, int screenY)
+    {
+        x = screenX / 2;
+        y = screenY - GameVariables.paddleHeight;
+        rect = new RectF(x, y, x + length, y + height);
     }
 
     // This is a getter method to make the rectangle that
@@ -52,7 +59,7 @@ public class Paddle {
         return rect;
     }
 
-    // This method will be used to change/set if the paddle is going left, right or nowhere
+    // This method will be used to change/set if the paddle is going left, right or now,here
     public void setMovementState(int state){
         paddleMoving = state;
     }

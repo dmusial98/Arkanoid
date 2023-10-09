@@ -14,6 +14,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -58,13 +59,13 @@ public class BreakoutGame extends Activity {
 
                 SensorManager.getRotationMatrixFromVector(rotationMatrix, sensorEvent.values);
 
-//                 Remap coordinate system
+                //Remap coordinate system
                 float[] remappedRotationMatrix = new float[16];
                 SensorManager.remapCoordinateSystem(rotationMatrix,
                         SensorManager.AXIS_X,
                         SensorManager.AXIS_Z,
                         remappedRotationMatrix);
-// Convert to orientations
+                //Convert to orientations
                 float[] orientations = new float[3];
                 SensorManager.getOrientation(remappedRotationMatrix, orientations);
 
@@ -72,15 +73,14 @@ public class BreakoutGame extends Activity {
                     orientations[i] = (float) (Math.toDegrees(orientations[i]));
                 }
 
-
                 angle = orientations[2];
-                if (angle > -85 && angle < -5) { //prawo
+                if (angle > -85 && angle < -5) //right side
                     breakoutView.paddle.setMovementState(breakoutView.paddle.RIGHT);
-                } else if (angle > -175 && angle < -95) { //lewo
+                else if (angle > -175 && angle < -95)  //left side
                     breakoutView.paddle.setMovementState(breakoutView.paddle.LEFT);
-                } else if (angle < -85 && angle > -95) {
+                else if (angle < -85 && angle > -95)
                     breakoutView.paddle.setMovementState(breakoutView.paddle.STOPPED);
-                }
+
             }
 
             @Override
@@ -88,8 +88,8 @@ public class BreakoutGame extends Activity {
             }
         };
 
-        sensorManager.registerListener(rvListener,
-                rotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if(GameVariables.controlWithRotation)
+            sensorManager.registerListener(rvListener, rotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     // Here is our implementation of BreakoutView
@@ -140,11 +140,18 @@ public class BreakoutGame extends Activity {
         Brick[] bricks = new Brick[200];
         int numBricks = 0;
 
+        SoundPool soundPool;
+        int beep1ID = -1;
+        int beep2ID = -1;
+        int beep3ID = -1;
+        int loseLifeID = -1;
+        int explodeID = -1;
+
         // The score
         int score = 0;
 
         // Lives
-        int lives = 3;
+        int lives = GameVariables.livesNumber;
 
 
         // When the we initialize (call new()) on gameView
@@ -173,14 +180,36 @@ public class BreakoutGame extends Activity {
             // Create a ball
             ball = new Ball(screenX, screenY);
 
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
 
+            try {
+                // Create objects of the 2 required classes
+                AssetManager assetManager = context.getAssets();
+                AssetFileDescriptor descriptor;
 
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+                // Load our fx in memory ready for use
+                descriptor = assetManager.openFd("beep1.ogg");
+                beep1ID = soundPool.load(descriptor, 0);
 
+                descriptor = assetManager.openFd("beep2.ogg");
+                beep2ID = soundPool.load(descriptor, 0);
 
+                descriptor = assetManager.openFd("beep3.ogg");
+                beep3ID = soundPool.load(descriptor, 0);
+
+                descriptor = assetManager.openFd("loseLife.ogg");
+                loseLifeID = soundPool.load(descriptor, 0);
+
+                descriptor = assetManager.openFd("explode.ogg");
+                explodeID = soundPool.load(descriptor, 0);
+
+            } catch (IOException e) {
+                // Print an error message to the console
+                Log.e("error", "failed to load sound files");
+            }
+            
+            
             createBricksAndRestart();
-
         }
 
         public void createBricksAndRestart() {
@@ -188,13 +217,13 @@ public class BreakoutGame extends Activity {
             // Put the ball back to the start
             ball.reset(screenX, screenY);
 
-            int brickWidth = screenX / 8;
-            int brickHeight = screenY / 10;
+            int brickWidth = screenX / GameVariables.bricksNumberInColumns;
+            int brickHeight = screenY / (GameVariables.bricksNumberInRows + 7);
 
             // Build a wall of bricks
             numBricks = 0;
-            for (int column = 0; column < 8; column++) {
-                for (int row = 0; row < 3; row++) {
+            for (int column = 0; column < GameVariables.bricksNumberInColumns; column++) {
+                for (int row = 0; row < GameVariables.bricksNumberInRows; row++) {
                     bricks[numBricks] = new Brick(row, column, brickWidth, brickHeight);
                     numBricks++;
                 }
@@ -202,12 +231,19 @@ public class BreakoutGame extends Activity {
             // if game over reset scores and lives
             if (lives == 0) {
                 score = 0;
-                lives = 3;
+                lives = GameVariables.livesNumber;
             }
         }
 
         @Override
         public void run() {
+
+            Log.d("Settings", "lives number: " + GameVariables.livesNumber);
+            Log.d("Settings", "paddle length: " + GameVariables.paddleLength);
+            Log.d("Settings", "control with rotation: " + GameVariables.controlWithRotation);
+            Log.d("Settings", "paddle speed: " + GameVariables.paddleSpeed);
+            Log.d("Settings", "ball horizontall speed: " + GameVariables.ballHorizontalSpeed);
+            Log.d("Settings", "ball vertical speed: " + GameVariables.ballVerticalSpeed);
             while (playing) {
                 // Capture the current time in milliseconds in startFrameTime
                 long startFrameTime = System.currentTimeMillis();
@@ -245,6 +281,7 @@ public class BreakoutGame extends Activity {
                         bricks[i].setInvisible();
                         ball.reverseYVelocity();
                         score = score + 10;
+                        soundPool.play(explodeID, 1, 1, 0, 0, 1);
                     }
                 }
             }
@@ -253,14 +290,18 @@ public class BreakoutGame extends Activity {
 //                ball.setRandomXVelocity();
                 ball.reverseYVelocity();
                 ball.clearObstacleY(paddle.getRect().top - 2);
+                soundPool.play(beep1ID, 1, 1, 0, 0, 1);
             }
             // Bounce the ball back when it hits the bottom of screen
             if (ball.getRect().bottom > screenY) {
                 ball.reverseYVelocity();
-                ball.clearObstacleY(screenY - 2);
+                ball.reset(screenX, screenY);
+                paddle.reset(screenX, screenY);
+//                ball.clearObstacleY(screenY - 2);
 
                 // Lose a life
                 lives--;
+                soundPool.play(loseLifeID, 1, 1, 0, 0, 1);
                 paused = true;
 
                 if (lives == 0) {
@@ -273,6 +314,7 @@ public class BreakoutGame extends Activity {
             {
                 ball.reverseYVelocity();
                 ball.clearObstacleY(GameVariables.ballWidthHeightInPixels);
+                soundPool.play(beep2ID, 1, 1, 0, 0, 1);
             }
 
             // If the ball hits left wall bounce
@@ -280,12 +322,14 @@ public class BreakoutGame extends Activity {
             {
                 ball.reverseXVelocity();
                 ball.clearObstacleX(2);
+                soundPool.play(beep3ID, 1, 1, 0, 0, 1);
             }
 
             // If the ball hits right wall bounce
             if (ball.getRect().right > screenX ) {
                 ball.reverseXVelocity();
                 ball.clearObstacleX(screenX - GameVariables.ballWidthHeightInPixels - 2);
+                soundPool.play(beep3ID, 1, 1, 0, 0, 1);
             }
 
             // Pause if cleared screen

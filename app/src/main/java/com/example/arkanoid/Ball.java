@@ -14,8 +14,8 @@ public class Ball {
     public Ball(int screenX, int screenY){
 
         // Start the ball travelling straight up at 100 pixels per second
-        xVelocity = 300;
-        yVelocity = -600;
+        xVelocity = GameVariables.ballHorizontalSpeed;
+        yVelocity = GameVariables.ballVerticalSpeed;
 
         // Place the ball in the centre of the screen at the bottom
         // Make it a 10 pixel x 10 pixel square
@@ -42,15 +42,6 @@ public class Ball {
         xVelocity = - xVelocity;
     }
 
-    public void setRandomXVelocity(){
-        Random generator = new Random();
-        int answer = generator.nextInt(2);
-
-        if(answer == 0){
-            reverseXVelocity();
-        }
-    }
-
     public void clearObstacleY(float y){
         rect.bottom = y;
         rect.top = y - ballHeight;
@@ -63,7 +54,7 @@ public class Ball {
 
     public void reset(int x, int y){
         rect.left = x / 2;
-        rect.top = y - 20;
+        rect.top = y - ballWidth;
         rect.right = x / 2 + ballWidth;
         rect.bottom = y - 20 - ballHeight;
     }
