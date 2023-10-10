@@ -1,8 +1,9 @@
 package com.example.arkanoid;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
     SeekBar brickRowNumberSeekbar;
     Spinner backgroundColorSpinner;
     Spinner bricksColorSpinner;
+    CheckBox rotationCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,11 +35,13 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         gameSpeedTextView = (TextView)findViewById(R.id.gameSpeedTextView);
-        gameSpeedTextView.setText("Game speed: 2");
+        gameSpeedTextView.setText("Game speed: " + (GameVariables.gameSpeedSeekbar + 1));
         gameSpeedSeekbar = (SeekBar)findViewById(R.id.gameSpeedSeekBar);
+        gameSpeedSeekbar.setProgress(GameVariables.gameSpeedSeekbar);
         gameSpeedSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                GameVariables.gameSpeedSeekbar = progress;
                 progress += 1;
                 GameVariables.ballHorizontalSpeed = progress * GameVariables.ballHorizontalMaxSpeed * 0.25f;
                 GameVariables.ballVerticalSpeed = progress * GameVariables.ballVerticalMaxSpeed * 0.25f;
@@ -51,15 +55,17 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
         platformSpeedTextView = (TextView) findViewById(R.id.platformSpeedTextView);
-        platformSpeedTextView.setText("Platform speed: 2");
+        platformSpeedTextView.setText("Platform speed: " + (GameVariables.platformSpeedSeekbar + 1));
         platformSpeedSeekbar = (SeekBar) findViewById(R.id.platformSpeedSeekbar);
+        platformSpeedSeekbar.setProgress(GameVariables.platformSpeedSeekbar);
         platformSpeedSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             // When the progress value has changed
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                GameVariables.platformSpeedSeekbar = progress;
                 progress += 1;
                 platformSpeedTextView.setText("Platform speed: " + progress);
-                GameVariables.paddleSpeed = progress * 0.25f * GameVariables.paddleSpeedMax;
+                GameVariables.paddleSpeed = GameVariables.paddleSpeedMin + (progress * 0.25f * (GameVariables.paddleSpeedMax - GameVariables.paddleSpeedMin));
 
             }
 
@@ -71,8 +77,9 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         });
 
         livesNumberTextView = (TextView) findViewById(R.id.livesNumberTextView);
-        livesNumberTextView.setText("Lives number: 3");
+        livesNumberTextView.setText("Lives number: " + GameVariables.livesNumber);
         livesNumberSeekbar = (SeekBar) findViewById(R.id.livesNumberSeekbar);
+        livesNumberSeekbar.setProgress(GameVariables.livesNumber - 1);
         livesNumberSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             // When the progress value has changed
             @Override
@@ -90,12 +97,14 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         });
 
         platformSizeTextView = (TextView) findViewById(R.id.platformSizeTextView);
-        platformSizeTextView.setText("Platform size: 2");
+        platformSizeTextView.setText("Platform size: " + (GameVariables.platformSizeSeekbar + 1));
         platformSizeSeekbar = (SeekBar) findViewById(R.id.platformSizeSeekbar);
+        platformSizeSeekbar.setProgress(GameVariables.platformSizeSeekbar);
         platformSizeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             // When the progress value has changed
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                GameVariables.platformSizeSeekbar = progress;
                 progress += 1;
                 GameVariables.paddleLength = GameVariables.paddleLengthMax * progress * 0.25f;
                 platformSizeTextView.setText("Platform size: " + progress);
@@ -109,8 +118,9 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         });
 
         brickColumnNumberTextView = (TextView) findViewById(R.id.brickColumnNumberTextView);
-        brickColumnNumberTextView.setText("Brick column number: 8");
+        brickColumnNumberTextView.setText("Brick column number: " + GameVariables.bricksNumberInColumns);
         brickColumnNumberSeekbar = (SeekBar) findViewById(R.id.brickColumnNumberSeekbar);
+        brickColumnNumberSeekbar.setProgress(GameVariables.bricksNumberInColumns - 1);
         brickColumnNumberSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             // When the progress value has changed
             @Override
@@ -128,8 +138,9 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         });
 
         brickRowNumberTextView = (TextView) findViewById(R.id.brickRowNumberTextView);
-        brickRowNumberTextView.setText("Brick row number: 3");
+        brickRowNumberTextView.setText("Brick row number: " + GameVariables.bricksNumberInRows);
         brickRowNumberSeekbar = (SeekBar) findViewById(R.id.brickRowNumberSeekbar);
+        brickRowNumberSeekbar.setProgress(GameVariables.bricksNumberInRows - 1);
         brickRowNumberSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             // When the progress value has changed
             @Override
@@ -155,6 +166,16 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         bricksColorSpinner.setAdapter(new SpinnerAdapter(this, true));
 
         bricksColorSpinner.setOnItemSelectedListener(this);
+
+        rotationCheckBox = (CheckBox)findViewById(R.id.rotationCheckBox);
+        rotationCheckBox.setChecked(GameVariables.controlWithRotation);
+        rotationCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                GameVariables.controlWithRotation = isChecked;
+            }
+        });
+
     }
 
     @Override
@@ -162,25 +183,25 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         switch(arg0.getId()) {
             case R.id.backgroundColorSpinner: {
                 if(id == 0)
-                    GameVariables.idBackgroundColor = getColor(R.color.back1);
+                    GameVariables.BackgroundColor = getColor(R.color.back1);
                 else if(id == 1)
-                    GameVariables.idBackgroundColor = getColor(R.color.back2);
+                    GameVariables.BackgroundColor = getColor(R.color.back2);
                 else if(id == 2)
-                    GameVariables.idBackgroundColor = getColor(R.color.back3);
+                    GameVariables.BackgroundColor = getColor(R.color.back3);
                 else if(id == 3)
-                    GameVariables.idBackgroundColor = getColor(R.color.back4);
+                    GameVariables.BackgroundColor = getColor(R.color.back4);
             }
             case R.id.bricksColorSpinner: {
                 if(id == 0)
-                    GameVariables.idBricksColor = getColor(R.color.brick1);
+                    GameVariables.BricksColor = getColor(R.color.brick1);
                 else if(id == 1)
-                    GameVariables.idBricksColor = getColor(R.color.brick2);
+                    GameVariables.BricksColor = getColor(R.color.brick2);
                 else if(id == 2)
-                    GameVariables.idBricksColor = getColor(R.color.brick3);
+                    GameVariables.BricksColor = getColor(R.color.brick3);
                 else if(id == 3)
-                    GameVariables.idBricksColor = getColor(R.color.brick4);
+                    GameVariables.BricksColor = getColor(R.color.brick4);
                 else if(id == 4)
-                    GameVariables.idBricksColor = getColor(R.color.brick5);
+                    GameVariables.BricksColor = getColor(R.color.brick5);
             }
         }
     }

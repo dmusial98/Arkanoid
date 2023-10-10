@@ -222,12 +222,12 @@
         android:layout_marginEnd="22dp"
         android:text="Control with rotation"
         android:textColor="@android:color/black"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox"
+        app:layout_constraintEnd_toStartOf="@+id/rotationCheckBox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bricksColorTextView" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/rotationCheckBox"
         android:layout_width="162dp"
         android:layout_height="30dp"
         android:layout_marginStart="22dp"

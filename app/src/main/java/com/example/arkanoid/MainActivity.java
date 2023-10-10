@@ -12,6 +12,7 @@ public class MainActivity extends Activity {
 
     Button playButton;
     Button settingsButton;
+    Button rulesButton;
     TextView textView;
 
     @Override
@@ -22,6 +23,7 @@ public class MainActivity extends Activity {
 
         playButton = (Button) findViewById(R.id.buttonPlay);
         settingsButton = (Button) findViewById(R.id.buttonSettings);
+        rulesButton = (Button) findViewById(R.id.buttonRules);
         textView = (TextView) findViewById(R.id.textView);
 
 
@@ -39,6 +41,15 @@ public class MainActivity extends Activity {
                 Log.d("BUTTONS", "User tapped the Supabutton");
 
                 Intent i = new Intent(MainActivity.this, Settings.class);
+                startActivity(i);
+            }
+        });
+
+        rulesButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("BUTTONS", "User tapped the Supabutton");
+
+                Intent i = new Intent(MainActivity.this, RulesAndControl.class);
                 startActivity(i);
             }
         });

@@ -21,7 +21,6 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -238,13 +237,14 @@ public class BreakoutGame extends Activity {
         @Override
         public void run() {
 
-            Log.d("Settings", "backgroundColorId: " + GameVariables.idBackgroundColor);
-            Log.d("Settings", "bricksColorId: " + GameVariables.idBricksColor);
+            Log.d("Settings", "rotation: " + GameVariables.controlWithRotation);
+            Log.d("Settings", "backgroundColorId: " + GameVariables.BackgroundColor);
+            Log.d("Settings", "bricksColorId: " + GameVariables.BricksColor);
             Log.d("Settings", "lives number: " + GameVariables.livesNumber);
             Log.d("Settings", "paddle length: " + GameVariables.paddleLength);
             Log.d("Settings", "control with rotation: " + GameVariables.controlWithRotation);
             Log.d("Settings", "paddle speed: " + GameVariables.paddleSpeed);
-            Log.d("Settings", "ball horizontall speed: " + GameVariables.ballHorizontalSpeed);
+            Log.d("Settings", "ball horizontal speed: " + GameVariables.ballHorizontalSpeed);
             Log.d("Settings", "ball vertical speed: " + GameVariables.ballVerticalSpeed);
             while (playing) {
                 // Capture the current time in milliseconds in startFrameTime
@@ -353,7 +353,7 @@ public class BreakoutGame extends Activity {
 
                 // Draw the background color
 //                canvas.drawColor(Color.argb(255, 26, 128, 182));
-                canvas.drawColor(GameVariables.idBackgroundColor);
+                canvas.drawColor(GameVariables.BackgroundColor);
 
                 // Choose the brush color for drawing
                 paint.setColor(Color.argb(255, 0, 0, 0));
@@ -365,7 +365,7 @@ public class BreakoutGame extends Activity {
                 canvas.drawRect(ball.getRect(), paint);
 
                 // Change the brush color for drawing
-                paint.setColor(GameVariables.idBricksColor);
+                paint.setColor(GameVariables.BricksColor);
 
                 // Draw the bricks if visible
                 for (int i = 0; i < numBricks; i++) {
@@ -421,21 +421,20 @@ public class BreakoutGame extends Activity {
         // So we can override this method and detect screen touches.
         @Override
         public boolean onTouchEvent(MotionEvent motionEvent) {
-            switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
-                // Player has touched the screen
-                case MotionEvent.ACTION_DOWN:
-                    paused = false;
-                    if (motionEvent.getX() > screenX / 2)
-                        paddle.setMovementState(paddle.RIGHT);
-                    else
-                        paddle.setMovementState(paddle.LEFT);
-                    break;
-
-                // Player has removed finger from screen
-                case MotionEvent.ACTION_UP:
-                    paddle.setMovementState(paddle.STOPPED);
-                    break;
-            }
+                switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+                    // Player has touched the screen
+                    case MotionEvent.ACTION_DOWN:
+                        paused = false;
+                        if (motionEvent.getX() > screenX / 2)
+                            paddle.setMovementState(paddle.RIGHT);
+                        else
+                            paddle.setMovementState(paddle.LEFT);
+                        break;
+                    // Player has removed finger from screen
+                    case MotionEvent.ACTION_UP:
+                        paddle.setMovementState(paddle.STOPPED);
+                        break;
+                }
             return true;
         }
 
