@@ -238,6 +238,8 @@ public class BreakoutGame extends Activity {
         @Override
         public void run() {
 
+            Log.d("Settings", "backgroundColorId: " + GameVariables.idBackgroundColor);
+            Log.d("Settings", "bricksColorId: " + GameVariables.idBricksColor);
             Log.d("Settings", "lives number: " + GameVariables.livesNumber);
             Log.d("Settings", "paddle length: " + GameVariables.paddleLength);
             Log.d("Settings", "control with rotation: " + GameVariables.controlWithRotation);
@@ -350,10 +352,11 @@ public class BreakoutGame extends Activity {
                 canvas = ourHolder.lockCanvas();
 
                 // Draw the background color
-                canvas.drawColor(Color.argb(255, 26, 128, 182));
+//                canvas.drawColor(Color.argb(255, 26, 128, 182));
+                canvas.drawColor(GameVariables.idBackgroundColor);
 
                 // Choose the brush color for drawing
-                paint.setColor(Color.argb(255, 255, 255, 255));
+                paint.setColor(Color.argb(255, 0, 0, 0));
 
                 // Draw the paddle
                 canvas.drawRect(paddle.getRect(), paint);
@@ -362,7 +365,7 @@ public class BreakoutGame extends Activity {
                 canvas.drawRect(ball.getRect(), paint);
 
                 // Change the brush color for drawing
-                paint.setColor(Color.argb(255, 249, 129, 0));
+                paint.setColor(GameVariables.idBricksColor);
 
                 // Draw the bricks if visible
                 for (int i = 0; i < numBricks; i++) {
