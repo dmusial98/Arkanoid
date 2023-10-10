@@ -8,8 +8,8 @@ public class Ball {
     RectF rect;
     float xVelocity;
     float yVelocity;
-    float ballWidth = 10;
-    float ballHeight = 10;
+    float ballWidth = 30;
+    float ballHeight = 30;
 
     public Ball(int screenX, int screenY){
 
@@ -63,9 +63,9 @@ public class Ball {
 
     public void reset(int x, int y){
         rect.left = x / 2;
-        rect.top = y - 20;
+        rect.top = y - 40;
         rect.right = x / 2 + ballWidth;
-        rect.bottom = y - 20 - ballHeight;
+        rect.bottom = y - 40 - ballHeight;
     }
 
 }

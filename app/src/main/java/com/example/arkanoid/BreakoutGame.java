@@ -187,17 +187,20 @@ public class BreakoutGame extends Activity {
             }
             // Check for ball colliding with paddle
             if (RectF.intersects(paddle.getRect(), ball.getRect())) {
-                ball.setRandomXVelocity();
+//                ball.setRandomXVelocity();
                 ball.reverseYVelocity();
                 ball.clearObstacleY(paddle.getRect().top - 2);
             }
             // Bounce the ball back when it hits the bottom of screen
             if (ball.getRect().bottom > screenY) {
                 ball.reverseYVelocity();
-                ball.clearObstacleY(screenY - 2);
+//                ball.clearObstacleY(screenY - 2);
 
                 // Lose a life
                 lives--;
+                paused = true;
+                ball.reset(screenX, screenY);
+                paddle.reset(screenX, screenY);
 
                 if (lives == 0) {
                     paused = true;
@@ -207,10 +210,9 @@ public class BreakoutGame extends Activity {
 
             // Bounce the ball back when it hits the top of screen
             if (ball.getRect().top < 0)
-
             {
                 ball.reverseYVelocity();
-                ball.clearObstacleY(12);
+                ball.clearObstacleY(40);
             }
 
             // If the ball hits left wall bounce
@@ -225,7 +227,7 @@ public class BreakoutGame extends Activity {
             if (ball.getRect().right > screenX - 10) {
 
                 ball.reverseXVelocity();
-                ball.clearObstacleX(screenX - 22);
+                ball.clearObstacleX(screenX - 42);
             }
 
             // Pause if cleared screen
@@ -250,7 +252,7 @@ public class BreakoutGame extends Activity {
                 canvas.drawColor(Color.argb(255, 26, 128, 182));
 
                 // Choose the brush color for drawing
-                paint.setColor(Color.argb(255, 255, 255, 255));
+                paint.setColor(Color.argb(255, 0, 0, 0));
 
                 // Draw the paddle
                 canvas.drawRect(paddle.getRect(), paint);
