@@ -2,9 +2,9 @@ package com.example.arkanoid;
 
 public class GameVariables {
 
-    public static int ballWidthHeightInPixels = 20;
+    public static int ballWidthHeightInPixels = 40;
     public static float paddleLength = 130;
-    public static int paddleHeight = 40;
+    public static int paddleHeight = 60;
 
     public static final int paddleLengthMax = 300;
     public static final int paddleSpeedMin = 400;
@@ -25,5 +25,9 @@ public class GameVariables {
     public static int bricksNumberInColumns = 8;
     public static int bricksNumberInRows = 3;
     public static boolean controlWithRotation = false;
+    public static boolean vibrations = false;
+    public static boolean audio = true;
+
+
 
 }

@@ -27,6 +27,8 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
     Spinner backgroundColorSpinner;
     Spinner bricksColorSpinner;
     CheckBox rotationCheckBox;
+    CheckBox audioCheckBox;
+    CheckBox vibrationCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -159,12 +161,10 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
 
         backgroundColorSpinner = (Spinner) findViewById(R.id.backgroundColorSpinner);
         backgroundColorSpinner.setAdapter(new SpinnerAdapter(this, false));
-
         backgroundColorSpinner.setOnItemSelectedListener(this);
 
         bricksColorSpinner = (Spinner) findViewById(R.id.bricksColorSpinner);
         bricksColorSpinner.setAdapter(new SpinnerAdapter(this, true));
-
         bricksColorSpinner.setOnItemSelectedListener(this);
 
         rotationCheckBox = (CheckBox)findViewById(R.id.rotationCheckBox);
@@ -173,6 +173,24 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
             @Override
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
                 GameVariables.controlWithRotation = isChecked;
+            }
+        });
+
+        audioCheckBox = (CheckBox)findViewById(R.id.audioCheckBox);
+        audioCheckBox.setChecked(GameVariables.audio);
+        audioCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                GameVariables.audio = isChecked;
+            }
+        });
+
+        vibrationCheckBox = (CheckBox)findViewById(R.id.vibrationCheckBox);
+        vibrationCheckBox.setChecked(GameVariables.vibrations);
+        vibrationCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                GameVariables.vibrations = isChecked;
             }
         });
 
@@ -190,6 +208,8 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
                     GameVariables.BackgroundColor = getColor(R.color.back3);
                 else if(id == 3)
                     GameVariables.BackgroundColor = getColor(R.color.back4);
+                else if(id == 4)
+                    GameVariables.BackgroundColor = getColor(R.color.back5);
             }
             case R.id.bricksColorSpinner: {
                 if(id == 0)
@@ -202,6 +222,10 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
                     GameVariables.BricksColor = getColor(R.color.brick4);
                 else if(id == 4)
                     GameVariables.BricksColor = getColor(R.color.brick5);
+                else if(id == 5)
+                    GameVariables.BricksColor = getColor(R.color.brick6);
+                else if(id == 6)
+                    GameVariables.BricksColor = getColor(R.color.brick7);
             }
         }
     }

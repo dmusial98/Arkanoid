@@ -29,8 +29,6 @@ public class MainActivity extends Activity {
 
         playButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("BUTTONS", "User tapped the Supabutton");
-
                 Intent i = new Intent(MainActivity.this, BreakoutGame.class);
                 startActivity(i);
             }
@@ -38,8 +36,6 @@ public class MainActivity extends Activity {
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("BUTTONS", "User tapped the Supabutton");
-
                 Intent i = new Intent(MainActivity.this, Settings.class);
                 startActivity(i);
             }
@@ -47,8 +43,6 @@ public class MainActivity extends Activity {
 
         rulesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("BUTTONS", "User tapped the Supabutton");
-
                 Intent i = new Intent(MainActivity.this, RulesAndControl.class);
                 startActivity(i);
             }

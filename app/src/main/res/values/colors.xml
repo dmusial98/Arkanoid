@@ -11,18 +11,22 @@
     <color name="back2">#ff66d9ff</color>
     <color name="back3">#ffff9999</color>
     <color name="back4">#ffffc266</color>
+    <color name="back5">#000000</color>
 
     <color name="brick1">#ff008000</color>
     <color name="brick2">#ff000099</color>
     <color name="brick3">#ff5200cc</color>
     <color name="brick4">#ff802000</color>
     <color name="brick5">#ffe60000</color>
+    <color name="brick6">#ffffffff</color>
+    <color name="brick7">#ffea03</color>
 
     <integer-array name="backgroundColors">
         <item>@color/back1</item>
         <item>@color/back2</item>
         <item>@color/back3</item>
         <item>@color/back4</item>
+        <item>@color/back5</item>
     </integer-array>
 
     <integer-array name="bricksColors">
@@ -31,6 +35,19 @@
         <item>@color/brick3</item>
         <item>@color/brick4</item>
         <item>@color/brick5</item>
+        <item>@color/brick6</item>
+        <item>@color/brick7</item>
     </integer-array>
+
+    <integer-array name="ballColors">
+        <item>@color/brick1</item>
+        <item>@color/brick2</item>
+        <item>@color/brick3</item>
+        <item>@color/brick4</item>
+        <item>@color/brick5</item>
+        <item>@color/brick6</item>
+        <item>@color/brick7</item>
+    </integer-array>
+
 
 </resources>

@@ -21,6 +21,8 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 
 import java.io.IOException;
 
@@ -36,7 +38,7 @@ public class BreakoutGame extends Activity {
     public SensorEventListener rvListener;
     public float[] rotationMatrix;
     public float angle;
-
+    Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,6 @@ public class BreakoutGame extends Activity {
         // Initialize gameView and set it as the view
         breakoutView = new BreakoutView(this);
         setContentView(breakoutView);
-
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
@@ -89,6 +90,9 @@ public class BreakoutGame extends Activity {
 
         if(GameVariables.controlWithRotation)
             sensorManager.registerListener(rvListener, rotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
     }
 
     // Here is our implementation of BreakoutView
@@ -280,10 +284,16 @@ public class BreakoutGame extends Activity {
             for (int i = 0; i < numBricks; i++) {
                 if (bricks[i].getVisibility()) {
                     if (RectF.intersects(bricks[i].getRect(), ball.getRect())) {
+                            // it is safe to cancel other vibrations currently taking place
+                        if(GameVariables.vibrations) {
+                            vibrator.cancel();
+                            vibrator.vibrate(300);
+                        }
                         bricks[i].setInvisible();
                         ball.reverseYVelocity();
                         score = score + 10;
-                        soundPool.play(explodeID, 1, 1, 0, 0, 1);
+                        if(GameVariables.audio)
+                            soundPool.play(explodeID, 1, 1, 0, 0, 1);
                     }
                 }
             }
@@ -292,7 +302,8 @@ public class BreakoutGame extends Activity {
 //                ball.setRandomXVelocity();
                 ball.reverseYVelocity();
                 ball.clearObstacleY(paddle.getRect().top - 2);
-                soundPool.play(beep1ID, 1, 1, 0, 0, 1);
+                if(GameVariables.audio)
+                    soundPool.play(beep1ID, 1, 1, 0, 0, 1);
             }
             // Bounce the ball back when it hits the bottom of screen
             if (ball.getRect().bottom > screenY) {
@@ -303,7 +314,8 @@ public class BreakoutGame extends Activity {
 
                 // Lose a life
                 lives--;
-                soundPool.play(loseLifeID, 1, 1, 0, 0, 1);
+                if(GameVariables.audio)
+                    soundPool.play(loseLifeID, 1, 1, 0, 0, 1);
                 paused = true;
 
                 if (lives == 0) {
@@ -316,7 +328,8 @@ public class BreakoutGame extends Activity {
             {
                 ball.reverseYVelocity();
                 ball.clearObstacleY(GameVariables.ballWidthHeightInPixels);
-                soundPool.play(beep2ID, 1, 1, 0, 0, 1);
+                if(GameVariables.audio)
+                    soundPool.play(beep2ID, 1, 1, 0, 0, 1);
             }
 
             // If the ball hits left wall bounce
@@ -324,14 +337,16 @@ public class BreakoutGame extends Activity {
             {
                 ball.reverseXVelocity();
                 ball.clearObstacleX(2);
-                soundPool.play(beep3ID, 1, 1, 0, 0, 1);
+                if(GameVariables.audio)
+                    soundPool.play(beep3ID, 1, 1, 0, 0, 1);
             }
 
             // If the ball hits right wall bounce
             if (ball.getRect().right > screenX ) {
                 ball.reverseXVelocity();
                 ball.clearObstacleX(screenX - GameVariables.ballWidthHeightInPixels - 2);
-                soundPool.play(beep3ID, 1, 1, 0, 0, 1);
+                if(GameVariables.audio)
+                    soundPool.play(beep3ID, 1, 1, 0, 0, 1);
             }
 
             // Pause if cleared screen
@@ -352,11 +367,10 @@ public class BreakoutGame extends Activity {
                 canvas = ourHolder.lockCanvas();
 
                 // Draw the background color
-//                canvas.drawColor(Color.argb(255, 26, 128, 182));
                 canvas.drawColor(GameVariables.BackgroundColor);
 
                 // Choose the brush color for drawing
-                paint.setColor(Color.argb(255, 0, 0, 0));
+                paint.setColor(GameVariables.BricksColor);
 
                 // Draw the paddle
                 canvas.drawRect(paddle.getRect(), paint);
@@ -365,7 +379,7 @@ public class BreakoutGame extends Activity {
                 canvas.drawRect(ball.getRect(), paint);
 
                 // Change the brush color for drawing
-                paint.setColor(GameVariables.BricksColor);
+//                paint.setColor(GameVariables.BricksColor);
 
                 // Draw the bricks if visible
                 for (int i = 0; i < numBricks; i++) {
@@ -425,6 +439,7 @@ public class BreakoutGame extends Activity {
                     // Player has touched the screen
                     case MotionEvent.ACTION_DOWN:
                         paused = false;
+//                        playing = true;
                         if (motionEvent.getX() > screenX / 2)
                             paddle.setMovementState(paddle.RIGHT);
                         else
@@ -433,8 +448,13 @@ public class BreakoutGame extends Activity {
                     // Player has removed finger from screen
                     case MotionEvent.ACTION_UP:
                         paddle.setMovementState(paddle.STOPPED);
+                        if(!playing) {
+                            playing = true;
+                            run();
+                        }
                         break;
                 }
+
             return true;
         }
 

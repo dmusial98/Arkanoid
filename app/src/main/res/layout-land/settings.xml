@@ -6,234 +6,316 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <SeekBar
-        android:id="@+id/gameSpeedSeekBar"
-        android:layout_width="162dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="51dp"
-        android:max="3"
-        android:progress="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/gameSpeedTextView"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+        android:scrollbarStyle="outsideOverlay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:id="@+id/gameSpeedTextView"
-        android:layout_width="180dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="22dp"
-        android:text="Game speed"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toStartOf="@+id/gameSpeedSeekBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/platformSpeedTextView"
-        android:layout_width="180dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="22dp"
-        android:text="Platform speed"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toStartOf="@+id/platformSpeedSeekbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameSpeedTextView" />
-
-    <SeekBar
-        android:id="@+id/platformSpeedSeekbar"
-        android:layout_width="162dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="51dp"
-        android:max="3"
-        android:progress="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/platformSpeedTextView"
-        app:layout_constraintTop_toBottomOf="@+id/gameSpeedSeekBar" />
-
-    <TextView
-        android:id="@+id/livesNumberTextView"
-        android:layout_width="180dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="22dp"
-        android:text="Lives number:"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toStartOf="@+id/livesNumberSeekbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/platformSpeedTextView" />
-
-    <SeekBar
-        android:id="@+id/livesNumberSeekbar"
-        android:layout_width="162dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="51dp"
-        android:max="4"
-        android:progress="2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/livesNumberTextView"
-        app:layout_constraintTop_toBottomOf="@+id/platformSpeedSeekbar" />
-
-    <TextView
-        android:id="@+id/platformSizeTextView"
-        android:layout_width="180dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="22dp"
-        android:text="Platform size"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toStartOf="@+id/platformSizeSeekbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/livesNumberTextView" />
-
-    <SeekBar
-        android:id="@+id/platformSizeSeekbar"
-        android:layout_width="162dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="51dp"
-        android:max="3"
-        android:progress="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/platformSizeTextView"
-        app:layout_constraintTop_toBottomOf="@+id/livesNumberSeekbar" />
-
-    <SeekBar
-        android:id="@+id/brickColumnNumberSeekbar"
-        android:layout_width="162dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="51dp"
-        android:max="9"
-        android:progress="7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/brickColumnNumberTextView"
-        app:layout_constraintTop_toBottomOf="@+id/platformSizeSeekbar" />
-
-    <TextView
-        android:id="@+id/brickColumnNumberTextView"
-        android:layout_width="180dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="22dp"
-        android:text="Brick column number"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toStartOf="@+id/brickColumnNumberSeekbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/platformSizeTextView" />
-
-    <TextView
-        android:id="@+id/brickRowNumberTextView"
-        android:layout_width="180dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="22dp"
-        android:text="Brick row number"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toStartOf="@+id/brickRowNumberSeekbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/brickColumnNumberTextView" />
-
-    <SeekBar
-        android:id="@+id/brickRowNumberSeekbar"
-        android:layout_width="162dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="51dp"
-        android:max="4"
-        android:progress="2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/brickRowNumberTextView"
-        app:layout_constraintTop_toBottomOf="@+id/brickColumnNumberSeekbar" />
-
-    <Spinner
-        android:id="@+id/backgroundColorSpinner"
-        android:layout_width="162dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="51dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backgroundColorTextView"
-        app:layout_constraintTop_toBottomOf="@+id/brickRowNumberSeekbar" />
-
-    <Spinner
-        android:id="@+id/bricksColorSpinner"
-        android:layout_width="162dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="51dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bricksColorTextView"
-        app:layout_constraintTop_toBottomOf="@+id/backgroundColorSpinner" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
 
-    <TextView
-        android:id="@+id/backgroundColorTextView"
-        android:layout_width="180dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="22dp"
-        android:text="Background color"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toStartOf="@+id/backgroundColorSpinner"
-        app:layout_constraintHorizontal_bias="0.451"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/brickRowNumberTextView" />
+            <SeekBar
+                android:id="@+id/gameSpeedSeekBar"
+                android:layout_width="168dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="51dp"
+                android:max="3"
+                android:progress="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/gameSpeedTextView"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/bricksColorTextView"
-        android:layout_width="180dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="22dp"
-        android:text="Bricks color"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toStartOf="@+id/bricksColorSpinner"
-        app:layout_constraintHorizontal_bias="0.451"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backgroundColorTextView" />
+            <TextView
+                android:id="@+id/gameSpeedTextView"
+                android:layout_width="186dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="22dp"
+                android:text="Game speed"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/gameSpeedSeekBar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="180dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="22dp"
-        android:text="Control with rotation"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toStartOf="@+id/rotationCheckBox"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bricksColorTextView" />
+            <TextView
+                android:id="@+id/platformSpeedTextView"
+                android:layout_width="186dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="22dp"
+                android:text="Platform speed"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/platformSpeedSeekbar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gameSpeedTextView" />
 
-    <CheckBox
-        android:id="@+id/rotationCheckBox"
-        android:layout_width="162dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="51dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/bricksColorSpinner" />
+            <SeekBar
+                android:id="@+id/platformSpeedSeekbar"
+                android:layout_width="168dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="51dp"
+                android:max="3"
+                android:progress="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/platformSpeedTextView"
+                app:layout_constraintTop_toBottomOf="@+id/gameSpeedSeekBar" />
+
+            <TextView
+                android:id="@+id/livesNumberTextView"
+                android:layout_width="186dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="22dp"
+                android:text="Lives number:"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/livesNumberSeekbar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/platformSpeedTextView" />
+
+            <SeekBar
+                android:id="@+id/livesNumberSeekbar"
+                android:layout_width="168dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="51dp"
+                android:max="4"
+                android:progress="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/livesNumberTextView"
+                app:layout_constraintTop_toBottomOf="@+id/platformSpeedSeekbar" />
+
+            <TextView
+                android:id="@+id/platformSizeTextView"
+                android:layout_width="186dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="22dp"
+                android:text="Platform size"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/platformSizeSeekbar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/livesNumberTextView" />
+
+            <SeekBar
+                android:id="@+id/platformSizeSeekbar"
+                android:layout_width="168dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="51dp"
+                android:max="3"
+                android:progress="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/platformSizeTextView"
+                app:layout_constraintTop_toBottomOf="@+id/livesNumberSeekbar" />
+
+            <SeekBar
+                android:id="@+id/brickColumnNumberSeekbar"
+                android:layout_width="168dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="51dp"
+                android:max="9"
+                android:progress="7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/brickColumnNumberTextView"
+                app:layout_constraintTop_toBottomOf="@+id/platformSizeSeekbar" />
+
+            <TextView
+                android:id="@+id/brickColumnNumberTextView"
+                android:layout_width="230dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="Brick column number"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/brickColumnNumberSeekbar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/platformSizeTextView" />
+
+            <TextView
+                android:id="@+id/brickRowNumberTextView"
+                android:layout_width="186dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="22dp"
+                android:text="Brick row number"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/brickRowNumberSeekbar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/brickColumnNumberTextView" />
+
+            <SeekBar
+                android:id="@+id/brickRowNumberSeekbar"
+                android:layout_width="168dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="51dp"
+                android:max="4"
+                android:progress="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/brickRowNumberTextView"
+                app:layout_constraintTop_toBottomOf="@+id/brickColumnNumberSeekbar" />
+
+            <Spinner
+                android:id="@+id/backgroundColorSpinner"
+                android:layout_width="162dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="51dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/backgroundColorTextView"
+                app:layout_constraintTop_toBottomOf="@+id/brickRowNumberSeekbar" />
+
+
+            <Spinner
+                android:id="@+id/bricksColorSpinner"
+                android:layout_width="168dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="51dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/bricksColorTextView"
+                app:layout_constraintTop_toBottomOf="@+id/backgroundColorSpinner" />
+
+            <TextView
+                android:id="@+id/backgroundColorTextView"
+                android:layout_width="186dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="22dp"
+                android:text="Background color"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/backgroundColorSpinner"
+                app:layout_constraintHorizontal_bias="0.451"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/brickRowNumberTextView" />
+
+            <TextView
+                android:id="@+id/bricksColorTextView"
+                android:layout_width="186dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="22dp"
+                android:text="Bricks color"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/bricksColorSpinner"
+                app:layout_constraintHorizontal_bias="0.451"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/backgroundColorTextView" />
+
+            <TextView
+                android:id="@+id/rotationTextView"
+                android:layout_width="186dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="22dp"
+                android:text="Control with rotation"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/rotationCheckBox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bricksColorTextView" />
+
+            <CheckBox
+                android:id="@+id/rotationCheckBox"
+                android:layout_width="162dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="51dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rotationTextView"
+                app:layout_constraintTop_toBottomOf="@+id/bricksColorSpinner" />
+
+            <CheckBox
+                android:id="@+id/audioCheckBox"
+                android:layout_width="162dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="51dp"
+                android:checked="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/audioTextView"
+                app:layout_constraintTop_toBottomOf="@+id/rotationCheckBox" />
+
+            <TextView
+                android:id="@+id/audioTextView"
+                android:layout_width="186dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="22dp"
+                android:text="Audio"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/audioCheckBox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rotationTextView" />
+
+            <TextView
+                android:id="@+id/vibrationTextView"
+                android:layout_width="186dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="22dp"
+                android:text="Vibration"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+
+                app:layout_constraintEnd_toStartOf="@+id/vibrationCheckBox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/audioTextView" />
+
+            <CheckBox
+                android:id="@+id/vibrationCheckBox"
+                android:layout_width="162dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="51dp"
+                android:checked="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/vibrationTextView"
+                app:layout_constraintTop_toBottomOf="@+id/audioCheckBox" />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
