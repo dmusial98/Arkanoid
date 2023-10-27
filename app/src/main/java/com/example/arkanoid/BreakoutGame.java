@@ -249,10 +249,10 @@ public class BreakoutGame extends Activity {
                 canvas = ourHolder.lockCanvas();
 
                 // Draw the background color
-                canvas.drawColor(Color.argb(255, 26, 128, 182));
+                canvas.drawColor(Color.argb(255, 224, 100, 11));
 
                 // Choose the brush color for drawing
-                paint.setColor(Color.argb(255, 0, 0, 0));
+                paint.setColor(Color.argb(255, 255, 255, 255));
 
                 // Draw the paddle
                 canvas.drawRect(paddle.getRect(), paint);
@@ -261,7 +261,7 @@ public class BreakoutGame extends Activity {
                 canvas.drawRect(ball.getRect(), paint);
 
                 // Change the brush color for drawing
-                paint.setColor(Color.argb(255, 249, 129, 0));
+                paint.setColor(Color.argb(255,164, 224, 11));
 
                 // Draw the bricks if visible
                 for (int i = 0; i < numBricks; i++) {
