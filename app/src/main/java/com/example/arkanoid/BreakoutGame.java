@@ -18,6 +18,7 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -152,6 +153,7 @@ public class BreakoutGame extends Activity {
 
         // The score
         int score = 0;
+        boolean won = false;
 
         // Lives
         int lives = GameVariables.livesNumber;
@@ -250,11 +252,15 @@ public class BreakoutGame extends Activity {
             Log.d("Settings", "paddle speed: " + GameVariables.paddleSpeed);
             Log.d("Settings", "ball horizontal speed: " + GameVariables.ballHorizontalSpeed);
             Log.d("Settings", "ball vertical speed: " + GameVariables.ballVerticalSpeed);
+
             while (playing) {
+//                Log.d("run game", "inside");
                 // Capture the current time in milliseconds in startFrameTime
                 long startFrameTime = System.currentTimeMillis();
                 // Update the frame
                 if (!paused) {
+                    won = false;
+                    Log.d("run game", "paused = false");
                     update();
                 }
                 // Draw the frame
@@ -268,8 +274,8 @@ public class BreakoutGame extends Activity {
                 }
 
             }
-
         }
+
 
         // Everything that needs to be updated goes in here
         // Movement, collision detection etc.
@@ -350,10 +356,18 @@ public class BreakoutGame extends Activity {
             }
 
             // Pause if cleared screen
-            if (score == numBricks * 10)
+            if (score == numBricks * 10 && !paused)
             {
                 paused = true;
                 createBricksAndRestart();
+                score = 0;
+                won = true;
+                lives = GameVariables.livesNumber;
+                ball.reverseYVelocity();
+                ball.reset(screenX, screenY);
+                paddle.reset(screenX, screenY);
+
+                Log.d("run game", "max score");
             }
 
         }
@@ -396,7 +410,7 @@ public class BreakoutGame extends Activity {
                 canvas.drawText("Score: " + score + "   Lives: " + lives, 10, 50, paint);
 
                 // Has the player cleared the screen?
-                if (score == numBricks * 10) {
+                if (won) {
                     paint.setTextSize(90);
                     canvas.drawText("YOU HAVE WON!", 10, screenY / 2, paint);
                 }
@@ -416,6 +430,7 @@ public class BreakoutGame extends Activity {
         // shutdown our thread.
         public void pause() {
             playing = false;
+            paused = true;
             try {
                 gameThread.join();
             } catch (InterruptedException e) {
@@ -444,14 +459,15 @@ public class BreakoutGame extends Activity {
                             paddle.setMovementState(paddle.RIGHT);
                         else
                             paddle.setMovementState(paddle.LEFT);
+
+                        if(!playing) {
+                            playing = true;
+//                            run();
+                        }
                         break;
                     // Player has removed finger from screen
                     case MotionEvent.ACTION_UP:
                         paddle.setMovementState(paddle.STOPPED);
-                        if(!playing) {
-                            playing = true;
-                            run();
-                        }
                         break;
                 }
 
@@ -479,5 +495,20 @@ public class BreakoutGame extends Activity {
         breakoutView.pause();
     }
 
+    @Override
+    public void finish()
+    {
+        super.finish();
+        breakoutView.pause();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Log.d(this.getClass().getName(), "back button pressed");
+            breakoutView.pause();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
 // This is the end of the BreakoutGame class
