@@ -86,6 +86,7 @@ public class BreakoutGame extends Activity {
 
         // The score
         int score = 0;
+        boolean won = false;
 
         // Lives
         int lives = 3;
@@ -150,6 +151,7 @@ public class BreakoutGame extends Activity {
                 long startFrameTime = System.currentTimeMillis();
                 // Update the frame
                 if (!paused) {
+                    won = false;
                     update();
                 }
                 // Draw the frame
@@ -231,11 +233,18 @@ public class BreakoutGame extends Activity {
             }
 
             // Pause if cleared screen
-            if (score == numBricks * 10)
-
+            if (score == numBricks * 10 && !paused)
             {
                 paused = true;
                 createBricksAndRestart();
+                score = 0;
+                won = true;
+                lives = 3;
+                ball.reverseYVelocity();
+                ball.reset(screenX, screenY);
+                paddle.reset(screenX, screenY);
+
+                Log.d("run game", "max score");
             }
 
         }
@@ -278,7 +287,7 @@ public class BreakoutGame extends Activity {
                 canvas.drawText("Score: " + score + "   Lives: " + lives, 10, 50, paint);
 
                 // Has the player cleared the screen?
-                if (score == numBricks * 10) {
+                if (won) {
                     paint.setTextSize(90);
                     canvas.drawText("YOU HAVE WON!", 10, screenY / 2, paint);
                 }
@@ -325,6 +334,10 @@ public class BreakoutGame extends Activity {
                         paddle.setMovementState(paddle.RIGHT);
                     else
                         paddle.setMovementState(paddle.LEFT);
+                    if(!playing) {
+                        playing = true;
+//                            run();
+                    }
                     break;
 
                 // Player has removed finger from screen
