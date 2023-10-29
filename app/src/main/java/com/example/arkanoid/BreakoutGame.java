@@ -150,6 +150,8 @@ public class BreakoutGame extends Activity {
         int beep3ID = -1;
         int loseLifeID = -1;
         int explodeID = -1;
+        int gameOverID = -1;
+        int youWonID = -1;
 
         // The score
         int score = 0;
@@ -208,6 +210,12 @@ public class BreakoutGame extends Activity {
                 descriptor = assetManager.openFd("explode.ogg");
                 explodeID = soundPool.load(descriptor, 0);
 
+                descriptor = assetManager.openFd("game-over.mp3");
+                gameOverID = soundPool.load(descriptor, 0);
+
+                descriptor = assetManager.openFd("congratulations-you-won.mp3");
+                youWonID = soundPool.load(descriptor, 0);
+
             } catch (IOException e) {
                 // Print an error message to the console
                 Log.e("error", "failed to load sound files");
@@ -260,7 +268,6 @@ public class BreakoutGame extends Activity {
                 // Update the frame
                 if (!paused) {
                     won = false;
-                    Log.d("run game", "paused = false");
                     update();
                 }
                 // Draw the frame
@@ -305,7 +312,6 @@ public class BreakoutGame extends Activity {
             }
             // Check for ball colliding with paddle
             if (RectF.intersects(paddle.getRect(), ball.getRect())) {
-//                ball.setRandomXVelocity();
                 ball.reverseYVelocity();
                 ball.clearObstacleY(paddle.getRect().top - 2);
                 if(GameVariables.audio)
@@ -320,10 +326,13 @@ public class BreakoutGame extends Activity {
 
                 // Lose a life
                 lives--;
-                if(GameVariables.audio)
+                if(GameVariables.audio && lives > 0)
                     soundPool.play(loseLifeID, 1, 1, 0, 0, 1);
-                paused = true;
 
+                if(GameVariables.audio && lives <= 0)
+                    soundPool.play(gameOverID, 1, 1, 0, 0, 1);
+
+                paused = true;
                 if (lives == 0) {
                     createBricksAndRestart();
                 }
@@ -359,6 +368,8 @@ public class BreakoutGame extends Activity {
             if (score == numBricks * 10 && !paused)
             {
                 paused = true;
+                if(GameVariables.audio)
+                    soundPool.play(youWonID, 1, 1, 0, 0, 1);
                 createBricksAndRestart();
                 score = 0;
                 won = true;
@@ -366,8 +377,6 @@ public class BreakoutGame extends Activity {
                 ball.reverseYVelocity();
                 ball.reset(screenX, screenY);
                 paddle.reset(screenX, screenY);
-
-                Log.d("run game", "max score");
             }
 
         }

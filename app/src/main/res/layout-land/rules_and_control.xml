@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <Button
-        android:id="@+id/textToSpeechButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="322dp"
-        android:layout_marginTop="330dp"
-        android:layout_marginEnd="322dp"
-        android:background="@color/white"
-        android:text="Voice"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/RulesTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Rules:\nThe goal of the game is to break ALL BRICKS at the top of the screen. The ball MUST NOT fall beyond the bottom edge of the screen, otherwise the player loses ONE LIFE. To SAVE the ball from FALLING OUT, MOVE THE PLATFORM at the bottom of the screen left and right. For breaking a SINGLE brick, the player receives 10 POINTS. In SETTINGS you can set the speed and width of the platform, ball speed, number of lives, number of bricks, change colors, enable audio, vibration when breaking bricks or control by turning the phone.\n\nControls:\nThe platform can be CONTROLLED by touching the appropriate HALF of the screen (left, right). If you turn on the platform control by ROTATING the device, just ROTATE the phone LEFT or RIGHT."
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="7dp"
+        tools:layout_editor_absoluteY="7dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
