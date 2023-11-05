@@ -57,5 +57,4 @@ class SpinnerAdapter extends BaseAdapter
         txv.setTextSize(10f);
         return view;
     }
-
 }

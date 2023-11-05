@@ -53,5 +53,4 @@ public class Ball {
         rect.right = x / 2 + ballWidth;
         rect.bottom = y - GameVariables.paddleHeight - ballHeight;
     }
-
 }

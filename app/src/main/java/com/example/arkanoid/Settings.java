@@ -10,6 +10,10 @@ import android.widget.TextView;
 import android.widget.AdapterView;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONObject;
+
+import java.io.File;
+
 public class Settings extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     SeekBar gameSpeedSeekbar;
@@ -235,6 +239,4 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
     {
         // Auto-generated method stub
     }
-
-
 }

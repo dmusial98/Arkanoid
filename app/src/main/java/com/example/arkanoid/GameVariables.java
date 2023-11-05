@@ -27,7 +27,4 @@ public class GameVariables {
     public static boolean controlWithRotation = false;
     public static boolean vibrations = false;
     public static boolean audio = true;
-
-
-
 }
