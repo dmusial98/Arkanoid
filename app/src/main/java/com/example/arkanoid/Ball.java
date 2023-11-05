@@ -13,14 +13,9 @@ public class Ball {
 
     public Ball(int screenX, int screenY){
 
-        // Start the ball travelling straight up at 100 pixels per second
         xVelocity = GameVariables.ballHorizontalSpeed;
         yVelocity = GameVariables.ballVerticalSpeed;
-
-        // Place the ball in the centre of the screen at the bottom
-        // Make it a 10 pixel x 10 pixel square
         rect = new RectF();
-
     }
 
     public RectF getRect(){

@@ -20,16 +20,14 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         playButton = (Button) findViewById(R.id.buttonPlay);
         settingsButton = (Button) findViewById(R.id.buttonSettings);
         rulesButton = (Button) findViewById(R.id.buttonRules);
         textView = (TextView) findViewById(R.id.textView);
 
-
         playButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, BreakoutGame.class);
+                Intent i = new Intent(MainActivity.this, Game.class);
                 startActivity(i);
             }
         });
